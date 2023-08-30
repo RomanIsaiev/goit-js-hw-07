@@ -2,7 +2,7 @@ import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 
 const gallery = document.querySelector(".gallery");
-gallery.addEventListener("click", onClick);
+gallery.addEventListener("click", onShow);
 
 const createImageListItem = galleryItems.map(
   (image) =>
@@ -21,7 +21,7 @@ function imageLinkToDefault(event) {
   event.preventDefault();
 }
 
-function onClick(event) {
+function onShow(event) {
   if (event.target.nodeName !== "IMG") {
     return;
   }
@@ -29,11 +29,18 @@ function onClick(event) {
   const instance = basicLightbox.create(
     `<img src="${event.target.dataset.source}" width="800" height="600">`
   );
+
   instance.show();
 
-  const ESC_KEY_CODE = "Escape";
-  const isEscKey = event.code === ESC_KEY_CODE;
-  if (isEscKey) {
-    instance.show();
+  if (instance.show()) {
+    window.addEventListener("keydown", closeModuleEsc);
+  }
+
+  function closeModuleEsc(event) {
+    const ESC_KEY_CODE = "Escape";
+    const isEscKey = event.code === ESC_KEY_CODE;
+    if (isEscKey) {
+      return instance.close();
+    }
   }
 }
