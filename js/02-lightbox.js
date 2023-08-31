@@ -11,17 +11,7 @@ const createImageListItem = galleryItems.map(
     </a>
     </li>`
 );
-
 gallery.insertAdjacentHTML("afterbegin", createImageListItem.join(""));
-
-const getAllLinksImage = document.querySelectorAll(".gallery__link");
-getAllLinksImage.forEach((link) =>
-  link.addEventListener("click", imageLinkToDefault)
-);
-
-function imageLinkToDefault(event) {
-  event.preventDefault();
-}
 
 const lightbox = new SimpleLightbox(".gallery a", {
   captionsData: "alt",
